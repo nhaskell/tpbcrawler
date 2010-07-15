@@ -53,6 +53,13 @@ public class DB {
 		}
 	}
 
+	public int getStart() throws SQLException
+	{
+		PreparedStatement prep = conn.prepareStatement("SELECT Max(id) from torrentinfo");
+		ResultSet rs = prep.executeQuery();
+		rs.next();
+		return(rs.getInt(1));
+	}
 	public void insertCat(int id, String title) throws SQLException {
 		String statement = "REPLACE INTO cat VALUES (?,?)";
 		PreparedStatement prep = conn.prepareStatement(statement);
@@ -62,7 +69,7 @@ public class DB {
 	}
 
 	public void insertInfo(TorrentInfo info) throws SQLException {
-		String statement = "REPLACE INTO torrentinfo VALUES (?,?,?,?,?,?,?)";
+		String statement = "REPLACE INTO torrentinfo VALUES (?,?,?,?,?,?,?,?)";
 		PreparedStatement prep = conn.prepareStatement(statement);
 		prep.setInt(1, info.id);
 		prep.setInt(2, info.date);
@@ -70,7 +77,8 @@ public class DB {
 		prep.setLong(4, info.size);
 		prep.setInt(5, info.cat);
 		prep.setInt(6, info.rating);
-		prep.setString(7, info.desc);
+		prep.setInt(7, info.seeders);
+		prep.setInt(8, info.leechers);
 		prep.executeUpdate();
 	}
 

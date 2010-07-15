@@ -33,7 +33,8 @@ public class Log {
 	}
 	
 	private void write(String text, Boolean terminal) {
-		if (isOpen()) {
+		System.out.println(text);
+		/*if (isOpen()) {
 			try {
 				out.write(text);
 				out.flush();
@@ -44,7 +45,7 @@ public class Log {
 		}
 		if (terminal || this.terminal) {
 			System.out.print(text);
-		}
+		}*/
 	}
 
 	public void log(String text, Boolean terminal) {

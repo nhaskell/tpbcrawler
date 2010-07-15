@@ -12,6 +12,8 @@ public class TorrentInfo {
 	protected Integer cat;
 	protected Integer rating;
 	protected String desc;
+	protected Integer seeders;
+	protected Integer leechers;
 	
 	public void write(String filename) {
 		try {

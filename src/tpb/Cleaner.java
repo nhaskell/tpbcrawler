@@ -20,11 +20,29 @@ public class Cleaner {
 		remove.add("\\{.*\\}");
 		remove.add("\\.(m|M)(p|P)(g|G)");
 		remove.add("\\.(a|A)(v|V)(i|I)");
+		remove.add("(x|X).?(V|v)(i|I)(D|d)");
+		remove.add("(d|D)(i|I)(v|V)(x|X)");
+		remove.add("(DVD)(R|r)(i|I)(p|P)");
+		remove.add("(H|h)(d|D)(T|t)(v|V)");
+		remove.add("(m|M)(p|P)3");
+		remove.add("(m|M)(o|O)(v|V)");
+		remove.add("(B|b)(r|R)(R|r)(i|I)(p|P)");
+		remove.add("2(H|h)(D|d)");
+		remove.add("MVGroup");
+		remove.add("FQM");
+		remove.add("aAF");
+		remove.add("VTV");
+		remove.add("FUtv");
+		remove.add("IMMERSE");
+		remove.add("720(p|P)");
+		remove.add("1080(p|P)");
+		
 		
 		space.add("\\s\\-\\s");
 		space.add("\\-");
 		space.add("\\_");
-		space.add("[a-z]\\.[a-zA-z]");
+		space.add("\\.");
+		space.add("\\++");
 		
 	}
 	
@@ -43,6 +61,7 @@ public class Cleaner {
 			p=Pattern.compile(search);
 			m = p.matcher(dirty);
 			dirty=m.replaceAll("");
+			
 			System.out.println("Now string is " + dirty);
 		}
 
@@ -58,6 +77,7 @@ public class Cleaner {
 		}
 
 		dirty.replace(" ", "+");
+		System.out.println();
 		return dirty;
 	}
 	

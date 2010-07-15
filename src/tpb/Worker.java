@@ -46,6 +46,7 @@ public class Worker implements Runnable {
 				TorrentInfo info = net.fetchInfo(id);
 				log += info.toString();
 				if (info.error()) {
+					log += torrent.error();
 					logger.log(log);
 					continue;
 				}
