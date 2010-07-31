@@ -125,9 +125,11 @@ public class Net {
 					} else if (dt.equals("Seeders:")) {
 						String seeders = dds.get(i).getTextExtractor().toString();
 						info.seeders=Integer.parseInt(seeders);
+						seeders=null;
 					} else if (dt.equals("Leechers:")) {
 						String leechers = dds.get(i).getTextExtractor().toString();
 						info.leechers=Integer.parseInt(leechers);
+						leechers=null;
 					} else if (dt.equals("Uploaded:")) {
 						// Get date
 						String dateString = dds.get(i).getTextExtractor()
@@ -144,6 +146,7 @@ public class Net {
 									+ "\".", true);
 						}
 						// System.out.println("Date: "+info.date);
+						
 					}
 				}
 			}

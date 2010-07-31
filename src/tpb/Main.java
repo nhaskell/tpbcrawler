@@ -44,8 +44,8 @@ public class Main {
 		}
 		//hack
 		step=+1;
-		num=4000;
-		start=5407000;
+		num=5000;
+		start=5391000;
 		start=db.getStart();
 		
 		
