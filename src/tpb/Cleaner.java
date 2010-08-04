@@ -21,6 +21,8 @@ public class Cleaner {
 	private LinkedList<String> videoEncodings;
 	private LinkedList<String> videoRes;
 	private LinkedList<String> language;
+	private static final String DATABASE_URL="jdbc:mysql://localhost/test";
+	
 	public Cleaner()
 	{
 		remove = new LinkedList<String>();
@@ -130,7 +132,7 @@ public class Cleaner {
 		return dirty;
 	}
 	
-	public String getParameters(String title, int cat) throws SQLException
+	public String getParameters(String title, int cat, int id) throws SQLException
 	{
 		Connection conn = null;
 		String parameters = null;
@@ -138,6 +140,7 @@ public class Cleaner {
 		
 			type=getType(cat);
 			parameters="?type=" + type;
+			parameters+="&id=" + id;
 			if(type=="music")
 			{
 				String encoding = getData(title,encodings);
@@ -219,6 +222,19 @@ public class Cleaner {
 		
 		return "unknown";
 	}
+	
+	private Connection connect()
+	{
+		Connection conn = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/test","nick", "what");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return conn;
+	}
 	public static void main(String[] args)
 	{
 		Cleaner c = new Cleaner();
@@ -231,16 +247,10 @@ public class Cleaner {
 			e1.printStackTrace();
 		}
 	    BufferedWriter out = new BufferedWriter(fstream);
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/test","nick", "what");
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	    conn = c.connect();
+
 		
-		String cleaned;
-		String statement = "SELECT title,cat FROM torrentinfo WHERE id>5700000 AND cat=205";
+		String statement = "SELECT title,cat,id FROM torrentinfo WHERE id>5700000 AND cat=205";
 		try{
 			
 		
@@ -249,7 +259,7 @@ public class Cleaner {
 			while(rs.next())
 				{
 					System.out.print(rs.getString("title"));
-					String parameters = c.getParameters(rs.getString("title"),rs.getInt("cat"));
+					String parameters = c.getParameters(rs.getString("title"),rs.getInt("cat"),rs.getInt("id"));
 					//cleaned=c.clean(rs.getString("title"),out);
 					
 					//out.write(parameters + "\n" + c.getSeasonEpisode(rs.getString("title")));

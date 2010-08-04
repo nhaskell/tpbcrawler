@@ -35,16 +35,11 @@ public class Net {
 			try {
 				source = new Source(new URL(url));
 			} catch (FileNotFoundException e) {
-				timeout++;
-				log("Torrent id " + id + " 404 #" + timeout + "." );
-				if(timeout==3)
-				{
+
 					info.error = "404";
 					notlogged=true;
 					break;
-				}
-				Thread.sleep(2000);
-				continue;
+
 			}
 				catch(Exception e)
 				{
